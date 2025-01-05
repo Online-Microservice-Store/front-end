@@ -3,13 +3,13 @@ import { Grid, Box, Card, Typography, Stack } from "@mui/material";
 import Link from "next/link";
 import PageContainer from "@/app/(DashboardLayout)/components/container/PageContainer";
 import Logo from "@/app/(DashboardLayout)/layout/shared/logo/Logo";
-import AuthRegister from "../auth/AuthRegister";
+import PaymentRegister from "@/app/components/PaymentRegister";
 
 
-export default function Register2() { 
+export default function Payment() { 
   
   return(
-    <PageContainer title="Register" description="this is Register page">
+    <PageContainer title="Pago" description="payment page">
       <Box
         sx={{
           position: "relative",
@@ -34,10 +34,10 @@ export default function Register2() {
         >
           <Grid
             item
-            xs={10}
-            sm={12}
+            xs={20}
+            sm={16}
             lg={9}
-            xl={3}
+            xl={9}
           >
             <Card
               elevation={9}
@@ -46,7 +46,7 @@ export default function Register2() {
               <Box display="flex" alignItems="center" justifyContent="center">
                 <Logo />
               </Box>
-              <AuthRegister
+              <PaymentRegister
                 
                 subtext={
                   <Typography
@@ -65,24 +65,6 @@ export default function Register2() {
                     spacing={1}
                     mt={3}
                   >
-                    <Typography
-                      color="textSecondary"
-                      variant="h6"
-                      fontWeight="400"
-                    >
-                      Already have an Account?
-                    </Typography>
-                    <Typography
-                      component={Link}
-                      href="/authentication/login"
-                      fontWeight="500"
-                      sx={{
-                        textDecoration: "none",
-                        color: "primary.main",
-                      }}
-                    >
-                      Sign In
-                    </Typography>
                   </Stack>
                 }
               />

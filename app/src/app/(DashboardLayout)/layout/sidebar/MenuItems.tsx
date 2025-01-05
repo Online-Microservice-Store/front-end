@@ -4,8 +4,13 @@ import {
   IconLayoutDashboard,
   IconLogin,
   IconMoodHappy,
-  IconTypography,
   IconUserPlus,
+  IconUser,
+  IconShoppingBag,
+  IconRegistered,
+  IconBrandStripeFilled,
+  IconFileDollar,
+  IconBrandPaypay
 } from "@tabler/icons-react";
 
 import { uniqueId } from "lodash";
@@ -24,19 +29,81 @@ const Menuitems = [
   },
   {
     navlabel: true,
-    subheader: "Utilities",
+    subheader: "Users",
   },
   {
     id: uniqueId(),
-    title: "Typography",
-    icon: IconTypography,
-    href: "/utilities/typography",
+    title: "Todos",
+    icon: IconUser,
+    href: "/users",
   },
   {
     id: uniqueId(),
-    title: "Shadow",
-    icon: IconCopy,
-    href: "/utilities/shadow",
+    title: "Administradores",
+    icon: IconUser,
+    href: "/users/admins",
+  },
+  {
+    id: uniqueId(),
+    title: "Comerciantes",
+    icon: IconUser,
+    href: "/users/traders",
+  },
+  {
+    id: uniqueId(),
+    title: "Clientes",
+    icon: IconUser,
+    href: "/users/clients",
+  },
+  {
+    navlabel: true,
+    subheader: "Tiendas",
+  },
+  {
+    id: uniqueId(),
+    title: "Tiendas",
+    icon: IconShoppingBag,
+    href: "/stores",
+  },
+  {
+    navlabel: true,
+    subheader: "Suscripciones",
+  },
+  {
+    id: uniqueId(),
+    title: "Suscripciones",
+    icon: IconRegistered,
+    href: "/suscriptions",
+  },
+  {
+    navlabel: true,
+    subheader: "Ordenes",
+  },
+  {
+    id: uniqueId(),
+    title: "Ordenes",
+    icon: IconBrandStripeFilled,
+    href: "/orders",
+  },
+  {
+    navlabel: true,
+    subheader: "Facturas",
+  },
+  {
+    id: uniqueId(),
+    title: "Facturas",
+    icon: IconFileDollar,
+    href: "/invoices",
+  },
+  {
+    navlabel: true,
+    subheader: "Pagos",
+  },
+  {
+    id: uniqueId(),
+    title: "Pagos",
+    icon: IconBrandPaypay,
+    href: "/payments",
   },
   {
     navlabel: true,
