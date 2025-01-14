@@ -134,7 +134,8 @@ const Product = () => {
       discount: product.discount,
       quantity: quantity,
       stockId: stockSelectedId,
-      discountCatalogo: product.Catalog.discount
+      discountCatalogo: product.Catalog.discount,
+      storeId: product.Catalog.storeId
     }
 
     addProduct(productNew);

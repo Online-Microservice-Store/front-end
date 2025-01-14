@@ -22,6 +22,7 @@ import L from "leaflet";
 import iconRetina from "leaflet/dist/images/marker-icon-2x.png";
 import iconMarker from "leaflet/dist/images/marker-icon.png";
 import iconShadow from "leaflet/dist/images/marker-shadow.png";
+import Link from 'next/link';
 
 // Dinamicamente importar MapContainer
 // const MapContainer = dynamic(() => import('react-leaflet').then(mod => mod.MapContainer), { ssr: false });
@@ -52,6 +53,7 @@ type Marker = {
     coordinates: [number, number]; // Coordenadas en forma de array con latitud y longitud
     name: string; // Nombre del lugar
     color: string; // Color del marcador
+    image: string;
   };
 
   const icon = L.icon({
@@ -96,6 +98,7 @@ export default function StoreWithProducts() {
                     ? product.store.coordenates
                     : [parseFloat(product.store.coordenates.split(",")[0]), parseFloat(product.store.coordenates.split(",")[1])],
                 name: product.name,
+                image: product.image,
                 color: "red",
             }));
             setMarkers(markets);
@@ -106,6 +109,7 @@ export default function StoreWithProducts() {
             mensajes("No se pudo realizar la búsqueda", error?.response?.data?.customMessage || "No se ha podido realizar la búsqueda", "error");
         }
     }
+
     const handleBlur = (event:any) => {
         const { name, value } = event.target;
         // Validación básica de campos requeridos
@@ -116,7 +120,6 @@ export default function StoreWithProducts() {
               name: value ? "" : "El nombre es requerido",
             }));
             break;
-            // Agregar más validaciones según sea necesario para los demás campos
           default:
             break;
         }
@@ -242,11 +245,23 @@ export default function StoreWithProducts() {
                                 ) : (
                                     <Marker key={marker._id} icon={icon} position={marker.coordinates}>
                                     <Popup
+                                        
+                                        // ref={`http://localhost:4000/products/${marker._id}`}
                                     >
                                         {/* {getProductById(marker._id)} */}
-
-                                        {marker.name}
-                                        {marker._id}
+                                        <Link href={`http://localhost:4000/products/${marker._id}`} >{marker.name}</Link>
+                                        <Avatar
+                                            src={marker?.image}
+                                            // src='/images/products/s5.jpg'
+                                            variant="square"
+                                            sx={{
+                                            height: 50,
+                                            width: '70%',
+                                            marginTop: '10px'
+                                            }}
+                                            
+                                        />
+                                        {/* {marker.name} */}
                                     </Popup>
                                     </Marker>
                                 )

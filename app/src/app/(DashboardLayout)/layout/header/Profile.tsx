@@ -12,6 +12,7 @@ import {
 } from "@mui/material";
 
 import { IconListCheck, IconMail, IconUser } from "@tabler/icons-react";
+import { logout } from "@/services/auth.service";
 
 const Profile = () => {
   const [anchorEl2, setAnchorEl2] = useState(null);
@@ -21,6 +22,11 @@ const Profile = () => {
   const handleClose2 = () => {
     setAnchorEl2(null);
   };
+
+  const handleLogout = (e:any) => {
+    e.preventDefault();
+    logout();
+  }
 
   return (
     <Box>
@@ -88,6 +94,7 @@ const Profile = () => {
             color="primary"
             component={Link}
             fullWidth
+            onClick={(e) => handleLogout(e)}
           >
             Logout
           </Button>

@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { Box, Typography, Button, Grid } from "@mui/material";
 import CustomTextField from "@/app/(DashboardLayout)/components/forms/theme-elements/CustomTextField";
 import { useState } from "react";
@@ -8,6 +8,8 @@ import { MapContainer, TileLayer } from "react-leaflet";
 import MapWithDrawNodes from "./MapWithDrawNodes";
 import { DEFAULT_MAP_CENTER, DEFAULT_MAP_ZOOM } from "@/constants";
 import { createInvoice } from "@/services/invoice.service";
+import { useInvoice } from "@/context/InvoiceContext";
+import { useAuth } from "@/context/AuthContext";
 
 interface RegisterType {
   title?: string;
@@ -22,6 +24,8 @@ export default function PaymentRegister ({ title, subtitle, subtext }: RegisterT
     latitude: (DEFAULT_MAP_CENTER as [number, number])[0].toString(),
     longitude: (DEFAULT_MAP_CENTER as [number, number])[1].toString()
   });
+  const {getProducts, deleteProducts} = useInvoice();
+  const {getUser} = useAuth();
 
   const [errors, setErrors] = useState({
     //order
@@ -29,11 +33,10 @@ export default function PaymentRegister ({ title, subtitle, subtext }: RegisterT
     coordinate: "",
     identification: "",
     deliveryTime: "",
-    status: "DELIVERED"
+    status: "NOT_DELIVERED"
   });
 
   const router = useRouter();
-
 
   const handleMarkerDrawn = (markerCoordinates : any) => {
     const coordinates = markerCoordinates.geometry.coordinates;
@@ -48,26 +51,41 @@ export default function PaymentRegister ({ title, subtitle, subtext }: RegisterT
   const handleSubmit = async (event : any) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    const body = {
-      address: data.get("address"),
-      deliveryTime: data.get("deliveryTime"),
-      coordinate: direction
+    const products : any[] = getProducts();
+    const user = getUser();
+    const coordinates = `${direction.latitude},${direction.longitude}`;
+    // //TODO: Complete Page method and data type
+    const invoice : any = {
+      date: new Date(),
+      tax: 14,
+      discount: 1,
+      // //TODO: Change ClietnId
+      clientId: user ? user.id : "",
+      // //TODO: Change to make orders by order
+      orders : [
+          {
+            address: data.get("address"),
+            coordinate: coordinates,
+            deliveryTime: data.get("deliveryTime"),
+            status: "NOT_DELIVERED",
+            clientId: user.id
+         }
+      ]
     }
-    console.log(body);
+    console.log(invoice);
     try {
-      await createInvoice(body);
+      const invoiceReceived : any = await createInvoice(invoice, products);
+      deleteProducts();
       mensajes("Orden creada", "Se ha registrado exitosamente.");
-
-      router.push("/")
+      router.push(invoiceReceived.paymentSession.url)
     } catch (error:any) {
       console.log(error?.response?.data || error.message);
       console.log(error.response.data.message);
       if(Array.isArray(error.response.data.message)){
         mensajes("Error al crear la orden", error.response.data.message[0] || "No se ha podido crear la orden", "error");
-      }else{
+      }else{3
         mensajes("Error al crear la orden", error.response.data.message || error.response.data.message[0] || "No se ha podido crear la orden", "error");
       }
-
     }
   }
 
@@ -97,7 +115,7 @@ export default function PaymentRegister ({ title, subtitle, subtext }: RegisterT
         default:
             break;
     }
-};
+  };
 
   return( 
     <>

@@ -11,6 +11,8 @@ interface InvoiceContextType {
     products: any,
     addProduct: (product:any) => void
     getProducts : () => any
+    deleteProducts : () => any
+    deleteProduct : () => void
 }
 
 const InvoiceContext = createContext<InvoiceContextType | undefined>(undefined);
@@ -21,15 +23,21 @@ interface InvoiceProviderProps {
 
 export const InvoiceProvider : React.FC<InvoiceProviderProps> = ( {children}) => {
     const [products, setProducts] = useState<any[]>([]);
+    const [storeInvoices, setStoreInvoices] = useState<any[]> ([]);
+
     useEffect(() => {
         console.log("Products updated:", products); // Verifica los productos actualizados
-      }, [products]);
+      }, [products, storeInvoices]);
 
     useEffect(() => {
         if (products.length > 0) {
             localStorage.setItem("products", JSON.stringify(products));
         }
-    }, [products]);
+        if (storeInvoices.length > 0){
+            localStorage.setItem("storeInvoice", JSON.stringify(storeInvoices));
+        }
+    }, [products, storeInvoices]);
+
 
     const addProduct = (product: any) => {
         const products = localStorage.getItem('products');
@@ -46,9 +54,21 @@ export const InvoiceProvider : React.FC<InvoiceProviderProps> = ( {children}) =>
         // Si no hay productos, retorna un array vacío, de lo contrario, parsea el JSON
         return products ? JSON.parse(products) : [];
     }
+    //TODO: Build delete product
+    const deleteProduct = () => {
+        const products = localStorage.getItem('products');
+
+    }
+
+    const deleteProducts = () => {
+        if (typeof window !== "undefined") {
+            localStorage.removeItem("products");
+          }
+    }
+
 
     return(
-        <InvoiceContext.Provider value={{products, addProduct, getProducts}}>
+        <InvoiceContext.Provider value={{products, addProduct, getProducts, deleteProduct, deleteProducts}}>
             {children}
         </InvoiceContext.Provider>
     );

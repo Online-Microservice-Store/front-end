@@ -20,6 +20,8 @@ interface AuthContextType {
   token: string | null;
   loginUser: (userData: User, authToken: string) => void;
   logoutUser: () => void;
+  getUser: () => User;
+  getToken: () => string;
 }
 
 // Crea el contexto con un tipo genérico
@@ -37,11 +39,14 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const loginUser = (userData: User, authToken: string) => {
     setUser(userData);
     setToken(authToken);
-
-    // Solo se ejecutará en el cliente
-    if (global?.window !== undefined) {
-      window?.localStorage?.setItem("user", JSON.stringify(userData));
-      window?.localStorage?.setItem("token", authToken);
+  
+    // Guarda el token en una cookie para acceso del middleware
+    document.cookie = `token=${authToken}; path=/; secure; samesite=none`;
+  
+    // Guarda en localStorage (solo para uso del cliente)
+    if (typeof window !== 'undefined') {
+      window.localStorage.setItem('user', JSON.stringify(userData));
+      window.localStorage.setItem('token', authToken);
     }
   };
 
@@ -55,8 +60,18 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   };
 
+  const getUser = () => {
+    const user = localStorage.getItem('user');
+    return user ? JSON.parse(user) : {}
+  }
+  
+  const getToken = () => {
+    const token = localStorage.getItem('token');
+    return token ? JSON.parse(token) : ""
+  }
+
   return (
-    <AuthContext.Provider value={{ user, token, loginUser, logoutUser }}>
+    <AuthContext.Provider value={{ user, token, loginUser, logoutUser, getUser, getToken }}>
       {children}
     </AuthContext.Provider>
   );
