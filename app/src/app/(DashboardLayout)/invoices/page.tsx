@@ -14,8 +14,10 @@ const SamplePage = () => {
     const [skip, setSkip] = useState(0);
     const [limit, setLimit] = useState(10);
     const [totalCount, setTotalCount] = useState(null);
-    const { token } = useAuth();
+    const { getToken } = useAuth();
     const router = useRouter();
+    const [token, setToken] = useState(getToken);
+
 
     const getInvoices = async () => {
         try {

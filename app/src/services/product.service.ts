@@ -27,7 +27,13 @@ export const getProductsByName = async (name : string) => {
     return data;
 }
 
-export const updateProduct = async (id:string, state: any, token: string | null) => {
+export const getProductsByCatalogId = async (id : string) => {
+    const url = `${BASEURL}/catalog/${id}`
+    const {data} = await axios.get(url);
+    return data;
+}
+
+export const updateProduct = async (id:string, body: any, token: string | null) => {
 
 }
 

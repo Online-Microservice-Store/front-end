@@ -1,7 +1,7 @@
 import axios from 'axios';
 import {BACKEND_URL} from '@/constants/index';
 
-const BASEURL = `${BACKEND_URL}/orders2`;
+const BASEURL = `${BACKEND_URL}/orders`;
 
 export const createOrder = async (body:any) => {
     const url = `${BASEURL}`;
@@ -13,6 +13,18 @@ export const createOrder = async (body:any) => {
 export const getAllOrders = async () => {
     const url = `${BASEURL}`;
     const {data} = await axios.get(url);
+    return data;
+}
+
+export const getOrdersByClientId = async (id:string) => {
+    const url = `${BASEURL}/client/${id}`;
+    const { data } = await axios.get(url);
+    return data;
+}
+
+export const getOrdersByStoreId = async (id: string) => {
+    const url = `${BASEURL}/store/${id}`;
+    const { data } = await axios.get(url);
     return data;
 }
 

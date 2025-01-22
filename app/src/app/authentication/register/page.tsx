@@ -37,7 +37,7 @@ export default function Register2() {
             xs={10}
             sm={12}
             lg={9}
-            xl={3}
+            xl={6}
           >
             <Card
               elevation={9}
@@ -70,7 +70,7 @@ export default function Register2() {
                       variant="h6"
                       fontWeight="400"
                     >
-                      Already have an Account?
+                     Ya tienes una cuenta?
                     </Typography>
                     <Typography
                       component={Link}

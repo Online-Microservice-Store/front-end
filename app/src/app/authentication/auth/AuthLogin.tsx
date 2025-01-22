@@ -31,26 +31,26 @@ export default function AuthLogin ({ title, subtitle, subtext }: loginType) {
   });
 
   const router = useRouter();
-  const { loginUser, user } = useAuth();
+  const { loginUser } = useAuth();
 
-  useEffect(() => {
-    if (!user) {
-        if (global?.window !== undefined) {
-            const userData = window?.localStorage?.getItem("user");
-            const token = window?.localStorage?.getItem("token");
-            if (userData && token) {
-                loginUser(JSON.parse(userData), token);
-                router.push("/");
-            }
-        }
-        // Si ya hay sesión, logueo al usuario, sino, lo mando al login
+  // useEffect(() => {
+  //   if (!user) {
+  //       if (global?.window !== undefined) {
+  //           const userData = window?.localStorage?.getItem("user");
+  //           const token = window?.localStorage?.getItem("token");
+  //           const rolss : any= window?.localStorage?.getItem("rols");
+  //           if (userData && token && rolss) {
+  //               // loginUser(JSON.parse(userData), token, rolss);
+  //               router.push("/");
+  //           }
+  //       }
+  //       // Si ya hay sesión, logueo al usuario, sino, lo mando al login
         
-    }
-  }, []);
+  //   }
+  // }, []);
 
   const handleSubmit = async (event:any) => {
     event.preventDefault();
-    console.log('INICIOOOO');
     const data = new FormData(event.currentTarget);
     const body = {
       email: data.get("email"),
@@ -59,9 +59,9 @@ export default function AuthLogin ({ title, subtitle, subtext }: loginType) {
     console.log(body);
     try {
       const res = await login(body);
-      loginUser(res.user, res.token)
+      loginUser(res.user, res.token, res.rols)
       mensajes("Bienvenido usuario", "Se ha registrado exitosamente, ingrese con sus credenciales.");
-      // router.push("/")
+      router.push("/products")
     } catch (error:any) {
       console.log(error?.response?.data || error.message);
       console.log(error.response.data.message);

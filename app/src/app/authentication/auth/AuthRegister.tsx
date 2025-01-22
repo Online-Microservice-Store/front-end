@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Typography, Button, Grid } from "@mui/material";
+import { Box, Typography, Button, Grid, FormControl, InputLabel, Select, MenuItem, SelectChangeEvent } from "@mui/material";
 import Link from "next/link";
 
 import CustomTextField from "@/app/(DashboardLayout)/components/forms/theme-elements/CustomTextField";
@@ -7,6 +7,7 @@ import { useState } from "react";
 import { createClient } from "@/services/client.service";
 import { useRouter } from "next/navigation";
 import mensajes from "@/app/components/Mensajes";
+import { createTrader } from "@/services/trader.service";
 interface RegisterType {
   title?: string;
   subtitle?: JSX.Element | JSX.Element[];
@@ -14,7 +15,8 @@ interface RegisterType {
 }
 
 export default function AuthRegister ({ title, subtitle, subtext }: RegisterType) {
-  const [area, setArea] = useState();
+  const [rol, setRol] = React.useState("Cliente");
+
   const [errors, setErrors] = useState({
     name: "",
     lastname: "",
@@ -42,8 +44,16 @@ export default function AuthRegister ({ title, subtitle, subtext }: RegisterType
     }
     console.log(body);
     try {
-      await createClient(body);
-      mensajes("Bienvenido usuario", "Se ha registrado exitosamente, ingrese con sus credenciales.");
+      if(rol == "Cliente"){
+        await createClient(body);
+        mensajes("Cliente creado", "Se ha registrado exitosamente, ingrese con sus credenciales.");
+
+      }
+      if(rol == "Comerciante"){
+        await createTrader(body);
+        mensajes("Comerciante creado", "Se ha registrado exitosamente, ingrese con sus credenciales.");
+
+      }
 
       router.push("/")
     } catch (error:any) {
@@ -113,6 +123,9 @@ export default function AuthRegister ({ title, subtitle, subtext }: RegisterType
         default:
             break;
     }
+};
+const handleChange = (event: SelectChangeEvent) => {
+  setRol(event.target.value as string);
 };
 
   return( 
@@ -300,6 +313,30 @@ export default function AuthRegister ({ title, subtitle, subtext }: RegisterType
               id="ocupation"
               autoFocus
             />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <Typography
+              variant="subtitle1"
+              fontWeight={600}
+              component="label"
+              htmlFor="rol"
+              mb="5px"
+            >
+              Rol
+            </Typography>
+            <FormControl fullWidth>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={rol}
+                label="Age"
+                onChange={handleChange}
+              >
+                <MenuItem value={"Cliente"}>Cliente</MenuItem>
+                <MenuItem value={"Comerciante"}>Comerciante</MenuItem>
+              </Select>
+            </FormControl>
+            
           </Grid>
         </Grid>
 

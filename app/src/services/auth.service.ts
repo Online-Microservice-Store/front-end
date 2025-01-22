@@ -15,5 +15,6 @@ export const login = async (body:any) => {
 
 export const logout = async () => {
     document.cookie = `token=; path=/; secure; samesite=none; maxAge: 0; httpOnly: true`;
+    document.cookie = `rols=; path=/; secure; samesite=none; maxAge: 0; httpOnly: true`;
     // res.status(200).json('Logout successfully');
 }

@@ -59,8 +59,7 @@ export default function PaymentRegister ({ title, subtitle, subtext }: RegisterT
       date: new Date(),
       tax: 14,
       discount: 1,
-      // //TODO: Change ClietnId
-      clientId: user ? user.id : "",
+      clientId: user ? user.rolId : "",
       // //TODO: Change to make orders by order
       orders : [
           {
@@ -68,7 +67,7 @@ export default function PaymentRegister ({ title, subtitle, subtext }: RegisterT
             coordinate: coordinates,
             deliveryTime: data.get("deliveryTime"),
             status: "NOT_DELIVERED",
-            clientId: user.id
+            clientId: user.rolId
          }
       ]
     }

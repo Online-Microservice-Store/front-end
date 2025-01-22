@@ -29,6 +29,30 @@ export const deleteInvoiceById = async (token: string | null, id : string) => {
 
 }
 
+export const getInvoiceByClientId = async (id:string) => {
+  const url = `${BASEURL}/client/${id}`;
+  const { data } = await axios.get(url);
+  return data;
+}
+
+export const getInvoiceStoreByInvoiceId = async (id : string | string[]) => {
+  const url = `${BASEURL}/invoiceStore/${id}`;
+  const { data } = await axios.get(url);
+  return data;
+}
+
+export const getAllInvoicesByStoreId = async (id: string, token: string) => {
+  const url = `${BASEURL}/invoiceStore/store/${id}`;
+  const config = {
+    headers: {
+        Authorization: `Bearer ${token}`, // Añade el token como un Bearer token
+    },
+  };
+  const {data} = await axios.get(url, config);
+  return data;
+
+}
+
 //Methods to create stores-invoices
 function createInvoiceStores(products:any) {
     // Agrupamos los productos por storeId
@@ -59,3 +83,4 @@ function createInvoiceStores(products:any) {
     // Convertimos el objeto en un array de InvoiceStore
     return Object.values(storesMap);
 }
+

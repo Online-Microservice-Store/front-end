@@ -2,7 +2,6 @@
 import React, {
   createContext,
   useContext,
-  useState,
   ReactNode,
 } from "react";
 
@@ -11,17 +10,16 @@ interface User {
   id: string;
   name: string;
   email: string;
-  // Puedes agregar más propiedades según tu modelo de usuario
+  rolId: string;
 }
 
 // Define la estructura del contexto de autenticación
 interface AuthContextType {
-  user: User | null;
-  token: string | null;
-  loginUser: (userData: User, authToken: string) => void;
+  loginUser: (userData: User, authToken: string, rols: string[]) => void;
   logoutUser: () => void;
-  getUser: () => User;
-  getToken: () => string;
+  getUser: () => User | null;
+  getToken: () => string | null;
+  getCookieValue: (name:string) => any;
 }
 
 // Crea el contexto con un tipo genérico
@@ -33,45 +31,63 @@ interface AuthProviderProps {
 }
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-  const [user, setUser] = useState<User | null>(null);
-  const [token, setToken] = useState<string | null>(null);
 
-  const loginUser = (userData: User, authToken: string) => {
-    setUser(userData);
-    setToken(authToken);
-  
+  const loginUser = (userData: User, authToken: string, rols: string[]) => {
+
     // Guarda el token en una cookie para acceso del middleware
-    document.cookie = `token=${authToken}; path=/; secure; samesite=none`;
+    const maxAge = 21600; // 21600 segundos = 6 horas
+    document.cookie = `token=${authToken}; path=/; secure; samesite=none; max-age=${maxAge}`;
+    document.cookie = `rols=${JSON.stringify(rols)}; path=/; secure; samesite=none; max-age=${maxAge}`;
+    
   
     // Guarda en localStorage (solo para uso del cliente)
     if (typeof window !== 'undefined') {
       window.localStorage.setItem('user', JSON.stringify(userData));
       window.localStorage.setItem('token', authToken);
+      window.localStorage.setItem('rols', JSON.stringify(rols));
     }
+
   };
 
   const logoutUser = () => {
-    setUser(null);
-    setToken(null);
 
     if (global?.window !== undefined) {
       // Solo se ejecutará en el cliente
       window?.localStorage?.clear();
     }
+
   };
 
   const getUser = () => {
-    const user = localStorage.getItem('user');
-    return user ? JSON.parse(user) : {}
+    if (typeof window !== 'undefined') {
+      const user = window.localStorage.getItem('user');
+      return user ? JSON.parse(user) : {}
+    }
+    return null;
+    
   }
   
   const getToken = () => {
-    const token = localStorage.getItem('token');
-    return token ? JSON.parse(token) : ""
+    if (typeof window !== 'undefined') {
+      const token = window.localStorage.getItem('token');
+      return token;
+    }
+    return null;
+  }
+
+  const getCookieValue = (name:string)  => {
+    const cookies = document.cookie.split('; '); // Divide las cookies por '; ' en un array
+    for (const cookie of cookies) {
+        const [key, value] = cookie.split('='); // Divide cada cookie en clave y valor
+        if (key === name) {
+            return value; // Devuelve el valor si el nombre coincide
+        }
+    }
+    return null; // Devuelve null si no se encuentra la cookie
   }
 
   return (
-    <AuthContext.Provider value={{ user, token, loginUser, logoutUser, getUser, getToken }}>
+    <AuthContext.Provider value={{ loginUser, logoutUser, getUser, getToken, getCookieValue }}>
       {children}
     </AuthContext.Provider>
   );

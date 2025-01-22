@@ -70,7 +70,7 @@ const Login2 = () => {
                       variant="h6"
                       fontWeight="500"
                     >
-                      New to Modernize?
+                      Eres nuevo en este sitio web?
                     </Typography>
                     <Typography
                       component={Link}
@@ -81,7 +81,7 @@ const Login2 = () => {
                         color: "primary.main",
                       }}
                     >
-                      Create an account
+                      Crear una cuenta
                     </Typography>
                   </Stack>
                 }

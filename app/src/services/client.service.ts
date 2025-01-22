@@ -9,9 +9,14 @@ export const createClient = async (body:any) => {
     return object;
 }
 
-export const getAllClients = async () => {
+export const getAllClients = async (token: string) => {
     const url = `${BASEURL}/get/Client`;
-    const {data} = await axios.get(url);
+    const config = {
+        headers: {
+            Authorization: `Bearer ${token}`, // Añade el token como un Bearer token
+        },
+    };
+    const {data} = await axios.get(url, config);
     return data;
 }
 

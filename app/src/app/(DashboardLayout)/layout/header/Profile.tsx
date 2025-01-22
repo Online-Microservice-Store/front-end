@@ -13,9 +13,13 @@ import {
 
 import { IconListCheck, IconMail, IconUser } from "@tabler/icons-react";
 import { logout } from "@/services/auth.service";
+import { useAuth } from "@/context/AuthContext";
+import { useRouter } from "next/navigation";
 
 const Profile = () => {
   const [anchorEl2, setAnchorEl2] = useState(null);
+  const router = useRouter()
+  const {logoutUser} = useAuth();
   const handleClick2 = (event: any) => {
     setAnchorEl2(event.currentTarget);
   };
@@ -26,6 +30,8 @@ const Profile = () => {
   const handleLogout = (e:any) => {
     e.preventDefault();
     logout();
+    logoutUser();
+    router.push('/authentication/login');
   }
 
   return (

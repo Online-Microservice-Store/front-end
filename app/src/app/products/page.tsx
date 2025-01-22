@@ -23,6 +23,7 @@ import iconRetina from "leaflet/dist/images/marker-icon-2x.png";
 import iconMarker from "leaflet/dist/images/marker-icon.png";
 import iconShadow from "leaflet/dist/images/marker-shadow.png";
 import Link from 'next/link';
+import Header from '../(DashboardLayout)/layout/header/Header';
 
 // Dinamicamente importar MapContainer
 // const MapContainer = dynamic(() => import('react-leaflet').then(mod => mod.MapContainer), { ssr: false });
@@ -32,8 +33,6 @@ const MapContainer = dynamic<MapContainerProps>(
   );
 const TileLayer = dynamic(() => import('react-leaflet').then(mod => mod.TileLayer), { ssr: false });
 // Dinamicamente importar MapContainer y TileLayer
-const MapWithDrawNodes = dynamic(() => import('@/app/components/MapWithDrawNodes'), { ssr: false });
-
 const storeInitialState = {
     name: "",
     latitude: (DEFAULT_MAP_CENTER as [number, number])[0].toString(),
@@ -78,15 +77,6 @@ export default function StoreWithProducts() {
         console.log(markers);
     },[markers]);
 
-    // const handleMarkerDrawn = (markerCoordinates : any) => {
-    //     const coordinates = markerCoordinates.geometry.coordinates;
-    //     setStore((prevState) => ({
-    //         ...prevState,
-    //         latitude: coordinates[1],
-    //         longitude: coordinates[0],
-    //     }));
-    // };
-
     const handleReseach = async (e : any) => {
         e.preventDefault();
         try {
@@ -126,6 +116,7 @@ export default function StoreWithProducts() {
     };
 
     return (
+
         <Container component="main" maxWidth="lg">
             <CssBaseline />
             <Box
@@ -204,14 +195,7 @@ export default function StoreWithProducts() {
                             </Grid>
                             
                         </Grid>
-                        {/* <MapContainerComponent width="100%" markers={[
-                            {
-                            _id: 1,
-                            coordinates: [-4.032747, -79.202405],
-                            name: "Universidad Nacional de Loja",
-                            color: "red",
-                            }
-                        ]} circle /> */}
+                        
                         <MapContainer
                             style={{ width: "100%", height: "60vh", marginTop: 20 }}
                             center={DEFAULT_MAP_CENTER}
