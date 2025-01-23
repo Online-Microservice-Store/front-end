@@ -13,8 +13,9 @@ const restrictedRoutes: Record<Role, string[]> = {
      "/admin/users", "/admin/users/admins", "/admin/users/clients", "/admin/users/traders"], // Rutas restringidas para ADMIN
   [Role.CLIENT]: [ "/products/cartttt", "/products/cartttt/payment", "/products/invoices", "/products/orders", "/products", "/products/:id", "/products/invoices", "/products/invoices/invoicesStore", "/products/orders" ],          // Rutas restringidas para USER
   [Role.TRADER]: ["/trader", "/trader/stores", "/trader/users", "/trader/stores", "/trader/stores/clientes/:storeId", "/trader/stores/invoices/:id", "/trader/stores/orders/:id",
-    "/trader/stores/create", "/trader/stores/catalogs/:id", "/trader/stores/catalogs/products/:id", "/trader/stores/catalogs/products/stocks/:id"
-   ],
+    "/trader/stores/create", "/trader/stores/catalogs/:id", "/trader/stores/catalogs/products/:id", "/trader/stores/catalogs/products/stocks/:id", "/trader/stores/catalogs/product/create"
+    ,"/trader/stores/catalogs/createProduct/:id", "/trader/stores/catalogs/products/stocks/createStock/:id"
+  ],
 };
 
 // Middleware
@@ -75,5 +76,7 @@ export function middleware(request: NextRequest) {
 
 // Configuración del matcher
 export const config = {
-  matcher: ["/products/:path*", "/trader/:path*", "/admin/:path*"],
+  matcher: ["/products/:path*",
+     "/trader/:path*",
+      "/admin/:path*"],
 };

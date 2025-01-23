@@ -63,8 +63,7 @@ const SamplePage = () => {
         }
     }
     const handleCreateProduct = () => {
-        alert('no implementado')
-        // router.push("/trader/stores/create");
+        router.push(`/trader/stores/catalogs/products/stocks/createStock/${id}`);
     };
 
     const handleDeleteStock = async (id:string) => {

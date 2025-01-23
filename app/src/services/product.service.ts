@@ -6,8 +6,8 @@ const BASEURL = `${BACKEND_URL}/products`;
 export const createProduct = async (body:any) => {
     const url = `${BASEURL}`;
     
-    const result = await axios.post(url, body);
-    return result;
+    const {data} = await axios.post(url, body);
+    return data;
 }
 export const getAllProducts = async () => {
     const url = `${BASEURL}`;

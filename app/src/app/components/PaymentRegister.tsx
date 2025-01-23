@@ -67,7 +67,7 @@ export default function PaymentRegister ({ title, subtitle, subtext }: RegisterT
             coordinate: coordinates,
             deliveryTime: data.get("deliveryTime"),
             status: "NOT_DELIVERED",
-            clientId: user.rolId
+            clientId: user?.rolId
          }
       ]
     }

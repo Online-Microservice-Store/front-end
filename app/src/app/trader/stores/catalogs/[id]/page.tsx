@@ -74,6 +74,10 @@ const SamplePage = () => {
         // alert('no implementado')
         router.push(`/trader/stores/catalogs/products/${id}`);
     }
+    const handleAddProduct = (id:string) => {
+        // alert('no implementado')
+        router.push(`/trader/stores/catalogs/createProduct/${id}`);
+    }
 
     const handleDeleteCatalog = async (id:string) => {
         // Lógica para dar de baja al investigador researcheristrador
@@ -177,6 +181,14 @@ const SamplePage = () => {
                                             sx={{ mr: 1, mb: 1, textTransform: 'none', fontSize: '0.875rem' }}
                                         >
                                             Productos
+                                        </Button>
+                                        <Button
+                                            variant="outlined"
+                                            color="secondary"
+                                            onClick={() => handleAddProduct(catalog.storeId)}
+                                            sx={{ mr: 1, mb: 1, textTransform: 'none', fontSize: '0.875rem' }}
+                                        >
+                                            Añadir producto
                                         </Button>
                                     </TableCell>
 
