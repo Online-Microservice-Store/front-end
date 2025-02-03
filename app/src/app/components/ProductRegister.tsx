@@ -5,7 +5,7 @@ import CustomTextField from "@/app/(DashboardLayout)/components/forms/theme-elem
 import { useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import mensajes from "@/app/components/Mensajes";
-import { getCatalogsByStoreId } from "@/services/catalog.service";
+import { createCatalogs, getCatalogsByStoreId } from "@/services/catalog.service";
 import { createProduct } from "@/services/product.service";
 interface RegisterType {
   title?: string;
@@ -41,7 +41,7 @@ export default function ProductRegister ({ title, subtitle, subtext }: RegisterT
         }
 
     } catch (error:any) {
-        mensajes("Error", error.response?.data?.customMessage || "No se ha podido obtener los productos", "error");
+        mensajes("Error", error.response?.data?.customMessage || "No se ha podido obtener los catalogos", "error");
     }
   }
   useEffect( () => {
@@ -66,8 +66,8 @@ export default function ProductRegister ({ title, subtitle, subtext }: RegisterT
     try {
       const product = await createProduct(body);
       console.log(product);
-      mensajes("Éxito", "Product creado exitosamente", "success");
-
+      mensajes("Éxito", "Producto creado exitosamente", "success");
+      router.back(); 
       // router.push("/")
     } catch (error:any) {
       console.log(error?.response?.data || error.message);
@@ -239,7 +239,7 @@ const handleChange = (event: SelectChangeEvent) => {
               htmlFor="price"
               mb="5px"
             >
-              Price
+              Precio
             </Typography>
             <CustomTextField
               onBlur={handleBlur}
@@ -252,6 +252,7 @@ const handleChange = (event: SelectChangeEvent) => {
               fullWidth
               id="username"
               autoFocus
+              inputProps={{ min: 0 }}
             />
           </Grid>
 
@@ -322,6 +323,7 @@ const handleChange = (event: SelectChangeEvent) => {
               required
               fullWidth
               id="discount"
+              inputProps={{ min: 0 }}
               autoFocus
             />
           </Grid>

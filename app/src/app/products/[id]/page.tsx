@@ -12,6 +12,7 @@
   import { useParams, useRouter } from 'next/navigation';
   import mensajes from '@/app/components/Mensajes';
   import { useInvoice } from '@/context/InvoiceContext';
+import { sizeHeight, sizeWidth } from '@mui/system';
 
   const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body1,
@@ -76,6 +77,10 @@
     const router = useRouter();
     const { id } = useParams();
     const [quantity, setQuantity] = useState(1);
+    const [leftBg, setLeftBg] = useState("transparent"); // Fondo izquierdo
+    const [rightBg, setRightBg] = useState("transparent"); // Fondo derecho
+    const [iconColor, setIconColor] = useState("black"); 
+
     const [stockSelectedId, setStockSelectedId] = useState("");
     const[product, setProduct] = useState<product>(
       productDefault
@@ -143,9 +148,14 @@
     return (
       <PageContainer title="Product" description="this is Shadow">
 
-        <DashboardCard title="Product">
+        <DashboardCard>
           <Grid container spacing={2}>
-              <Grid item xs={6} 
+          <Grid item xs={12} sx={{ display: "flex", justifyContent: "center", alignItems: "center", padding: "10px" }}>
+            <Typography variant="subtitle1" sx={{ fontSize: "40px", fontWeight: "bold" }}>
+              {product?.name}
+            </Typography>
+          </Grid>
+            <Grid item xs={6} 
               display={'flex'} // Activa el contexto flexbox
               justifyContent={'center'} // Centra horizontalmente
               alignItems={'center'} // Centra verticalmente
@@ -153,11 +163,11 @@
                 <ThemeProvider theme={lightTheme}>
                   <Box
                     sx={{
-                      p: 2,
+                      p: 1,
                       bgcolor: 'background.default',
                       display: 'grid',
                       // gridTemplateColumns: { md: '1fr 1fr' },
-                      gap: 2,
+                      gap: 1,
                     }}
                   >
                   <Box
@@ -165,8 +175,8 @@
                     src={product?.image}
                     alt={product?.name}
                     sx={{
-                      width: 450, // ancho fijo en píxeles
-                      height: 450, // alto fijo en píxeles
+                      width: 400, // ancho fijo en píxeles
+                      height: 400, // alto fijo en píxeles
                       objectFit: 'cover', // o 'contain' según lo que prefieras
                       borderRadius: 4, // opcional, para esquinas redondeadas
                     }}
@@ -185,53 +195,127 @@
                     gap: 2,
                   }}
                 >
-                  <DashboardCard title="Nombre del articulo">
-                    <Typography>{product?.name}</Typography>
-                  </DashboardCard>
-                  <DashboardCard title="Precio">
-                    <Typography>{product?.price}</Typography>
-                  </DashboardCard>
-                  
-                  <DashboardCard title="Color" >
-                    <Box sx={{display: "flex"}}>
-                      {product.Stock.map( (stock) => (
-                        <option
-                        color={stock.color} key={stock.color} onClick={() => setStockSelectedId(stock.id)}
-                        style={{
+                  <DashboardCard title="Información del producto:" >
+                   <Typography fontSize={"18px"} fontWeight={"600"} marginTop={3}>Nombre: </Typography>
+                    <Typography fontSize={"16px"}>{product?.name}</Typography>
+                    <Typography fontSize={"18px"} fontWeight={"600"} marginTop={3}>Precio: </Typography>
+                    <Typography fontSize={"16px"}>${product?.price} c/u</Typography>
+                    <Typography fontSize={"18px"} fontWeight={"600"} marginTop={3}>Colores disponibles: </Typography>
+                    
+                    <Box sx={{ display: "flex" }}>
+                    {product.Stock.map((stock) => (
+                      <Box
+                        key={stock.color}
+                        onClick={() => setStockSelectedId(stock.id)}
+                        sx={{
                           margin: "10px",
-                          width: "20px",
-                          height: "20px",
+                          width: "30px",
+                          height: "30px",
                           borderRadius: "50%",
                           backgroundColor: stock.color,
                           cursor: "pointer",
+                          // border: stockSelectedId === stock.id ? "1px solid black" : "0px solid transparent",
+                          boxShadow: stockSelectedId === stock.id ? ` 0px 0px 3px 3px ${stock.color}` : "none",
+                          transition: "all 0.3s ease-in-out",
                         }}
-                      >
-                      </option>
-                      ))}
-                    </Box>
-                  </DashboardCard>
-                  <DashboardCard title="Carrito de compras">
-                    <Box>
-                      <Typography>Carrito de compras</Typography>
+                      />
+                    ))}
+                  </Box>
+                  <Typography fontSize={"18px"} fontWeight={"600"} marginTop={3}>Cantidad a comprar: </Typography>
+
+                  <Box>
+                      {/* <Typography>Carrito de compras</Typography> */}
                     {/* <AddContainer> */}
                           {/* <AmountContainer> */}
-                          <Box sx={{display: 'flex', fontSize: '1000' }}>
-                              <IconMinus style={{ marginTop: '15px'}} fontSize={20} onClick={() => handleQuantity("dec") }/>
-                              <Typography fontSize={20} margin={2}> {quantity} </Typography>  
-                              <IconPlus style={{ marginTop: '15px'}} fontSize={20} onClick={() => handleQuantity("inc")}/>
-                          {/* </AmountContainer> */}
-                          </Box>
-                          <Button 
-                              disableElevation color="primary"
-                              variant="contained"
-                              style={{ padding: '15px'}}
+                          <Box 
+                            sx={{ 
+                              display: "flex", 
+                              alignItems: "center", 
+                              justifyContent: "center",
+                              padding: "10px",
+                              borderRadius: "10px",
+                            }}
+                          >
+                            {/* Botón de Restar */}
+                            <Box 
+                              sx={{
+                                backgroundColor: leftBg,
+                                padding: "10px",
+                                borderRadius: "10px",
+                                transition: "background-color 0.3s ease-in-out",
+                              }}
+                              onMouseEnter={() => setLeftBg("#ffdddd")} // Fondo rojo claro
+                              onMouseLeave={() => setLeftBg("transparent")} 
+                            >
+                              <IconMinus 
+                                fontSize="20"
+                                style={{
+                                  cursor: "pointer",
+                                  transition: "color 0.3s ease-in-out",
+                                  color: iconColor,
+                                }}
+                                onMouseEnter={() => setIconColor("red")} 
+                                onMouseLeave={() => setIconColor("black")} 
+                                onClick={() => handleQuantity("dec")}
+                              />
+                            </Box>
 
-                              onClick={(e) => AddProductToCart(e)}
-                            > ADD TO CART 
-                          </Button>
+                            {/* Cantidad */}
+                            <Typography fontSize={20} margin={2}> {quantity} </Typography>  
+
+                            {/* Botón de Sumar */}
+                            <Box 
+                              sx={{
+                                backgroundColor: rightBg,
+                                padding: "10px",
+                                borderRadius: "10px",
+                                transition: "background-color 0.3s ease-in-out",
+                              }}
+                              onMouseEnter={() => setRightBg("#ddffdd")} // Fondo verde claro
+                              onMouseLeave={() => setRightBg("transparent")} 
+                            >
+                              <IconPlus 
+                                fontSize="20"
+                                style={{
+                                  cursor: "pointer",
+                                  transition: "color 0.3s ease-in-out",
+                                  color: iconColor,
+                                }}
+                                onMouseEnter={() => setIconColor("green")} 
+                                onMouseLeave={() => setIconColor("black")} 
+                                onClick={() => handleQuantity("inc")}
+                              />
+                            </Box>
+                          </Box>
+                          
                     </Box>
-                      {/* </AddContainer> */}
-                  </DashboardCard>
+                    
+                  </DashboardCard>       
+
+                  {/* <DashboardCard title="Cantidad:">
+                    
+                  </DashboardCard>  */}
+                  <Box 
+                            sx={{ 
+                              display: "flex", 
+                              justifyContent: "center", // Centrar horizontalmente
+                              alignItems: "center", // Centrar verticalmente (si es necesario)
+                              width: "100%", // Asegurar que el Box ocupe todo el ancho disponible
+                              marginTop: "5px" // Espaciado opcional
+                            }}
+                          >
+                            <Button 
+                              variant="contained"
+                              color="error"
+                              style={{ 
+                                padding: "10px", 
+                                fontSize: "16px" // Opcional, para mejor legibilidad
+                              }}
+                              onClick={(e) => AddProductToCart(e)}
+                            > 
+                              Añadir al carrito 
+                            </Button>
+                          </Box>
                 </Box>
               </ThemeProvider>
             </Grid>

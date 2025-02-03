@@ -54,7 +54,7 @@ const MonthlyEarnings = () => {
 
   return (
     <DashboardCard
-      title="Monthly Earnings"
+      title="Suscripciones mensuales"
       action={
         <Fab color="secondary" size="medium" sx={{color: '#ffffff'}}>
           <IconCurrencyDollar width={24} />
@@ -66,14 +66,14 @@ const MonthlyEarnings = () => {
     >
       <>
         <Typography variant="h3" fontWeight="700" mt="-20px">
-          $6,820
+          $0,00
         </Typography>
         <Stack direction="row" spacing={1} my={1} alignItems="center">
           <Avatar sx={{ bgcolor: errorlight, width: 27, height: 27 }}>
             <IconArrowDownRight width={20} color="#FA896B" />
           </Avatar>
           <Typography variant="subtitle2" fontWeight="600">
-            +9%
+            +0%
           </Typography>
           <Typography variant="subtitle2" color="textSecondary">
             last year

@@ -47,17 +47,6 @@ export default function Register2() {
                 <Logo />
               </Box>
               <AuthRegister
-                
-                subtext={
-                  <Typography
-                    variant="subtitle1"
-                    textAlign="center"
-                    color="textSecondary"
-                    mb={1}
-                  >
-                    Your Social Campaigns
-                  </Typography>
-                }
                 subtitle={
                   <Stack
                     direction="row"

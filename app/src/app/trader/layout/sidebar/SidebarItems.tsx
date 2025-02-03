@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation";
 import { Box, List } from "@mui/material";
 import NavItem from "./NavItem";
 import NavGroup from "./NavGroup/NavGroup";
+import Logo from "../shared/logo/Logo";
 
 const SidebarItems = ({ toggleMobileSidebar }: any) => {
   const pathname = usePathname();
@@ -11,7 +12,8 @@ const SidebarItems = ({ toggleMobileSidebar }: any) => {
 
   return (
     <Box sx={{ px: 3 }}>
-      <List sx={{ pt: 0 }} className="sidebarNav" component="div">
+      <List sx={{ pt: 0, marginTop:"30px", marginLeft:"10px" }} className="sidebarNav" component="div">
+        <Logo />
         {Menuitems.map((item) => {
           // {/********SubHeader**********/}
           if (item.subheader) {

@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import MensajeConfirmacion from "@/app/components/MensajeConfirmacion";
 import CustomPagination from "@/app/components/CustomPagination";
 import { ACTIVE_USER_STATUS, AVAILABLE_PRODUCT, BLOQUED_USER_STATUS, NOT_AVAILABLE_PRODUCT } from "@/constants";
-import { getCatalogsByStoreId } from "@/services/catalog.service";
+import { createCatalogs } from "@/services/catalog.service";
 import { getProductsByCatalogId } from "@/services/product.service";
 import { getStocksByProductId } from "@/services/stock.service";
 

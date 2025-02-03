@@ -52,10 +52,10 @@ const SamplePage = () => {
             <CssBaseline />
             <Box
                 sx={{
-                    marginTop: 8,
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "center",
+                    marginLeft: '16%'
                 }}
             >
                 <Grid container justifyContent="space-between" alignItems="center">

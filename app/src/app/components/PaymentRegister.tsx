@@ -10,6 +10,7 @@ import { DEFAULT_MAP_CENTER, DEFAULT_MAP_ZOOM } from "@/constants";
 import { createInvoice } from "@/services/invoice.service";
 import { useInvoice } from "@/context/InvoiceContext";
 import { useAuth } from "@/context/AuthContext";
+import L from "leaflet";
 
 interface RegisterType {
   title?: string;

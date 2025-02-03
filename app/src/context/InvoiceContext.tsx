@@ -9,7 +9,7 @@ import React, {
 
 interface InvoiceContextType {
     products: any,
-    addProduct: (product:any) => void
+    addProduct: (product:any) => number
     getProducts : () => any
     deleteProducts : () => any
     deleteProduct : () => void
@@ -47,6 +47,7 @@ export const InvoiceProvider : React.FC<InvoiceProviderProps> = ( {children}) =>
         setProducts(updatedProducts);
         console.log('Producto agregado:', product);
         console.log('Productos actualizados:', updatedProducts);
+        return updatedProducts.length; // Devuelve el número de productos en el carrito
     };
 
     const getProducts = () => {

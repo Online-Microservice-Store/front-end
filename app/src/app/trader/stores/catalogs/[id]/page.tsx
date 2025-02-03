@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import MensajeConfirmacion from "@/app/components/MensajeConfirmacion";
 import CustomPagination from "@/app/components/CustomPagination";
 import { ACTIVE_USER_STATUS, BLOQUED_USER_STATUS } from "@/constants";
-import { getCatalogsByStoreId } from "@/services/catalog.service";
+import { createCatalogs, getCatalogsByStoreId } from "@/services/catalog.service";
 import { updateProduct } from "@/services/product.service";
 
 const SamplePage = () => {
@@ -32,7 +32,7 @@ const SamplePage = () => {
             }
 
         } catch (error:any) {
-            mensajes("Error", error.response?.data?.customMessage || "No se ha podido obtener las tiendas", "error");
+            mensajes("Error", error.response?.data?.customMessage || "No se ha podido obtener los catálogos", "error");
         }
     }
 
@@ -61,8 +61,7 @@ const SamplePage = () => {
         }
     }
     const handleCreateCatalog = () => {
-        alert('no implementado');
-        // router.push("/trader/stores/create");
+        router.push(`/trader/stores/catalogs/createCatalog/${id}`);
     };
 
     const handleEditCatalog = (id: string) => {

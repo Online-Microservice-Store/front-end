@@ -49,23 +49,13 @@ const Menuitems = [
   },
   {
     navlabel: true,
-    subheader: "Ordenes",
-  },
-  {
-    id: uniqueId(),
-    title: "Ordenes",
-    icon: IconBrandStripeFilled,
-    href: "/trader/orders",
-  },
-  {
-    navlabel: true,
     subheader: "Pagos",
   },
   {
     id: uniqueId(),
     title: "Pagos",
     icon: IconBrandPaypay,
-    href: "/trader/payments",
+    href: "/",
   },
 ];
 

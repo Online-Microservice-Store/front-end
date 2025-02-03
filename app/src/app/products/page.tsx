@@ -19,11 +19,7 @@ import { useRouter } from 'next/navigation';
 import { CircleMarker, MapContainerProps, Marker, Popup } from 'react-leaflet';
 import { getProductById, getProductsByName } from '@/services/product.service';
 import L from "leaflet";
-import iconRetina from "leaflet/dist/images/marker-icon-2x.png";
-import iconMarker from "leaflet/dist/images/marker-icon.png";
-import iconShadow from "leaflet/dist/images/marker-shadow.png";
 import Link from 'next/link';
-import Header from '../(DashboardLayout)/layout/header/Header';
 
 // Dinamicamente importar MapContainer
 // const MapContainer = dynamic(() => import('react-leaflet').then(mod => mod.MapContainer), { ssr: false });
@@ -31,6 +27,8 @@ const MapContainer = dynamic<MapContainerProps>(
     () => import('react-leaflet').then((mod) => mod.MapContainer),
     { ssr: false }
   );
+
+
 const TileLayer = dynamic(() => import('react-leaflet').then(mod => mod.TileLayer), { ssr: false });
 // Dinamicamente importar MapContainer y TileLayer
 const storeInitialState = {
@@ -56,17 +54,21 @@ type Marker = {
   };
 
   const icon = L.icon({
-    iconRetinaUrl: iconRetina.src,
-    iconUrl: iconMarker.src,
-    shadowUrl: iconShadow.src,
+    iconUrl: "/images/leaflet/pinROJO.png",
+    iconRetinaUrl: "/images/leaflet/pinROJO.png",
+    shadowUrl: "/images/leaflet/marker-shadow.png",
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34],
+    shadowSize: [41, 41],
   });
+
 export default function StoreWithProducts() {
     // const [area, setArea] = useState('');
     const [name, setName] = useState('');
     const [circle, setCircle] = useState(false);
     const [markers, setMarkers] = useState<Marker[]>();
 
-    const { token } = useAuth();
     const [errors, setErrors] = useState({
         name: "",
     });
@@ -96,7 +98,7 @@ export default function StoreWithProducts() {
         } catch (error : any) {
             console.log('ERROR');
             console.log(error);
-            mensajes("No se pudo realizar la búsqueda", error?.response?.data?.customMessage || "No se ha podido realizar la búsqueda", "error");
+            mensajes("No se encontro resultados", error?.response?.data?.customMessage || "Ningún resultado", "error");
         }
     }
 
@@ -126,6 +128,7 @@ export default function StoreWithProducts() {
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "center",
+                    marginLeft:"20%"
                 }}
 
             >
@@ -197,7 +200,7 @@ export default function StoreWithProducts() {
                         </Grid>
                         
                         <MapContainer
-                            style={{ width: "100%", height: "60vh", marginTop: 20 }}
+                            style={{ width: "100%", height: "70vh", marginTop: 20 }}
                             center={DEFAULT_MAP_CENTER}
                             zoom={DEFAULT_MAP_ZOOM}
                             scrollWheelZoom={true}
@@ -211,7 +214,7 @@ export default function StoreWithProducts() {
                                     <CircleMarker
                                         pathOptions={{
                                             color: "blue",
-                                            weight: 2,
+                                            weight: 1,
                                             opacity: 0.2,
                                             fillColor: "cyan",
                                             fillOpacity: 0.5,
@@ -228,8 +231,8 @@ export default function StoreWithProducts() {
                                     </CircleMarker>
                                 ) : (
                                     <Marker key={marker._id} icon={icon} position={marker.coordinates}>
-                                    <Popup
-                                        
+                                    <Popup 
+                                        className="custom-popup"
                                         // ref={`http://localhost:4000/products/${marker._id}`}
                                     >
                                         {/* {getProductById(marker._id)} */}
@@ -239,13 +242,15 @@ export default function StoreWithProducts() {
                                             // src='/images/products/s5.jpg'
                                             variant="square"
                                             sx={{
-                                            height: 50,
-                                            width: '70%',
-                                            marginTop: '10px'
+                                                height: 90,
+                                                width: '100%',
+                                                marginTop: '10px',
+                                                borderRadius: "50%"
                                             }}
                                             
+                                            
                                         />
-                                        {/* {marker.name} */}
+                                        {/* {marker.color} */}
                                     </Popup>
                                     </Marker>
                                 )

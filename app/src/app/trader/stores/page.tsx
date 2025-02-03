@@ -140,10 +140,23 @@ const SamplePage = () => {
                                     {/* <TableCell>
                                         <Avatar src={client.avatar} alt={client.firstName} />
                                     </TableCell> */}
-                                    <TableCell>{store.Store.name}</TableCell>
-                                    <TableCell>{store.Store.logo}</TableCell>
-                                    <TableCell>{store.Store.views}</TableCell>
-                                    <TableCell>{store.Store.ubication}</TableCell>  
+                                    <TableCell>{store.Store?.name}</TableCell>
+                                    <TableCell>
+                                        <Avatar
+                                            src={store.Store?.logo}
+                                            variant="square"
+                                            sx={{
+                                                marginLeft:"10px",
+                                                height: 'auto', // Ajusta la altura automáticamente según el ancho
+                                                width: '40%',  // Ocupa el ancho completo del contenedor
+                                                marginTop: '10px',
+                                                padding: '10px',
+                                                objectFit: 'cover'
+                                            }}
+                                        />
+                                    </TableCell>
+                                    <TableCell>{store.Store?.views}</TableCell>
+                                    <TableCell>{store.Store?.ubication}</TableCell>  
                                     <TableCell>
                                         <Button
                                             variant="outlined"

@@ -13,47 +13,38 @@ import DashboardCard from '@/app/(DashboardLayout)//components/shared/DashboardC
 const products = [
     {
         id: "1",
-        name: "Sunil Joshi",
-        post: "Web Designer",
-        pname: "Elite Admin",
-        priority: "Low",
-        pbg: "primary.main",
-        budget: "3.9",
+        name: "Audifonos",
+        post: "xs",
+        pname: "JBL Audiculares",
+        priority: "High",
+        pbg: "error.main",
+        budget: "0.1",
     },
     {
         id: "2",
-        name: "Andrew McDownland",
-        post: "Project Manager",
-        pname: "Real Homes WP Theme",
+        name: "Mouse",
+        post: "xs",
+        pname: "Mouse xs 1009LJ",
         priority: "Medium",
         pbg: "secondary.main",
-        budget: "24.5",
+        budget: "0.098",
     },
     {
         id: "3",
-        name: "Christopher Jamil",
-        post: "Project Manager",
-        pname: "MedicalPro WP Theme",
-        priority: "High",
-        pbg: "error.main",
+        name: "Alexa",
+        post: "high",
+        pname: "AWS Alexa xs",
+        priority: "Low",
+        pbg: "primary.main",
         budget: "12.8",
-    },
-    {
-        id: "4",
-        name: "Nirav Joshi",
-        post: "Frontend Engineer",
-        pname: "Hosting Press HTML",
-        priority: "Critical",
-        pbg: "success.main",
-        budget: "2.4",
-    },
+    }
 ];
 
 
 const ProductPerformance = () => {
     return (
 
-        <DashboardCard title="Product Performance">
+        <DashboardCard title="Productos más vendidos">
             <Box sx={{ overflow: 'auto', width: { xs: '280px', sm: 'auto' } }}>
                 <Table
                     aria-label="simple table"
@@ -71,22 +62,22 @@ const ProductPerformance = () => {
                             </TableCell>
                             <TableCell>
                                 <Typography variant="subtitle2" fontWeight={600}>
-                                    Assigned
+                                    Nombre
                                 </Typography>
                             </TableCell>
                             <TableCell>
                                 <Typography variant="subtitle2" fontWeight={600}>
-                                    Name
+                                    Modelo
                                 </Typography>
                             </TableCell>
                             <TableCell>
                                 <Typography variant="subtitle2" fontWeight={600}>
-                                    Priority
+                                    Prioridad
                                 </Typography>
                             </TableCell>
                             <TableCell align="right">
                                 <Typography variant="subtitle2" fontWeight={600}>
-                                    Budget
+                                    Dinero
                                 </Typography>
                             </TableCell>
                         </TableRow>

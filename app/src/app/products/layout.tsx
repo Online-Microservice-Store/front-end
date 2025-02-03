@@ -2,11 +2,9 @@
 import { styled, Container, Box, default as ThemeProvider } from "@mui/material";
 import React, { use, useEffect, useState } from "react";
 import Header from "@/app/(DashboardLayout)/layout/header/Header";
-import Sidebar from "@/app/(DashboardLayout)/layout/sidebar/Sidebar";
 import { useRouter } from "next/navigation";
-import { AuthProvider, useAuth } from "@/context/AuthContext";
-import { InvoiceProvider } from "@/context/InvoiceContext";
 import MSidebarClient from "../components/layoutCliente/sidebar/SidebarClient";
+import { useAuth } from "@/context/AuthContext";
 
 const MainWrapper = styled("div")(() => ({
   display: "flex",

@@ -56,7 +56,7 @@ function CustomPageToolbar({ productsChanged }: CustomPageHeaderProps) {
 
     return (
         <>
-            <Typography variant="h1" marginLeft={0} marginTop={3}>Productos </Typography>        
+            <Typography variant="h1" marginLeft={45}  >Carrito de compras </Typography>        
             <PageHeaderToolbar>
                 <Stack direction="row" spacing={1} alignItems="center">
                 <Button
@@ -123,7 +123,7 @@ const Cart = (props: any) => {
         //     title: 'ACME Inc.',
         //   }}
         >
-        <Paper sx={{ p: 2, width: '100%' }}>
+        <Paper sx={{ p: 2, width: '100%', marginLeft:"13%" }}>
             <PageContainer
                 slots={{
                     header: () => <CustomPageHeader productsChanged={productsChanged} />,

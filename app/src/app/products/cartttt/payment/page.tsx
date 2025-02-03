@@ -21,8 +21,9 @@ export default function Payment() {
             position: "absolute",
             height: "100%",
             width: "100%",
-            opacity: "0.3",
+            opacity: "0.001",
           },
+          marginLeft: "15%"
         }}
       >
         <Grid
@@ -36,8 +37,8 @@ export default function Payment() {
             item
             xs={20}
             sm={16}
-            lg={9}
-            xl={9}
+            lg={12}
+            xl={12}
           >
             <Card
               elevation={9}

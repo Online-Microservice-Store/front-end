@@ -8,7 +8,7 @@ import { createClient } from "@/services/client.service";
 import { useParams, useRouter } from "next/navigation";
 import mensajes from "@/app/components/Mensajes";
 import { createTrader } from "@/services/trader.service";
-import { getCatalogsByStoreId } from "@/services/catalog.service";
+import { createCatalogs } from "@/services/catalog.service";
 import { createProduct } from "@/services/product.service";
 import { createStock } from "@/services/stock.service";
 interface RegisterType {

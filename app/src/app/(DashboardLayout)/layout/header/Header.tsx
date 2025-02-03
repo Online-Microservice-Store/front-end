@@ -7,6 +7,7 @@ import Link from 'next/link';
 import Profile from './Profile';
 import { IconShoppingCart, IconMenu } from '@tabler/icons-react';
 import { useRouter } from 'next/navigation';
+import { useInvoice } from '@/context/InvoiceContext';
 
 interface ItemType {
   toggleMobileSidebar:  (event: React.MouseEvent<HTMLElement>) => void;
@@ -15,6 +16,7 @@ interface ItemType {
 const Header = ({toggleMobileSidebar}: ItemType) => {
   const router = useRouter();
   const [token, setToken] = useState<string | null>(null);
+  const { products } = useInvoice(); // Obtén los productos del contexto
 
   useEffect(() => {
     const cookies = document.cookie
@@ -24,7 +26,9 @@ const Header = ({toggleMobileSidebar}: ItemType) => {
       setToken(cookies.split('=')[1]);
     }
   }, []);
-
+  const getCartItemCount = () => {
+    return products.length; // O si usas localStorage: return JSON.parse(localStorage.getItem('products') || '[]').length;
+  };
   const AppBarStyled = styled(AppBar)(({ theme }) => ({
     boxShadow: 'none',
     background: theme.palette.background.paper,
@@ -60,10 +64,9 @@ const Header = ({toggleMobileSidebar}: ItemType) => {
           aria-controls="msgs-menu"
           aria-haspopup="true"
         >
-          <Badge variant="dot" color="primary">
-            <IconShoppingCart size="21" stroke="1.5" onClick={() => router.push('/products/cartttt')} />
+          <Badge color="primary" badgeContent={getCartItemCount()}>
+            <IconShoppingCart size="26" stroke="1.5" onClick={() => router.push('/products/cartttt')} />
           </Badge>
-
         </IconButton>
           <Profile />
         </Stack>

@@ -3,7 +3,21 @@ import { useMap } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "leaflet-draw/dist/leaflet.draw.css";
-import 'leaflet-draw';
+import "leaflet-draw";
+
+// Configura la ruta base de las imágenes de Leaflet
+L.Icon.Default.imagePath = "/images/leaflet/";
+
+// Configura el ícono por defecto para todos los marcadores
+L.Marker.prototype.options.icon = L.icon({
+  iconUrl: "marker-icon.png",
+  iconRetinaUrl: "marker-icon-2x.png",
+  shadowUrl: "marker-shadow.png",
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  shadowSize: [41, 41],
+});
 
 function MapWithDrawNodes({ onMarkerDrawn, markerRef, latitude, longitude }) {
   const map = useMap();
@@ -52,12 +66,9 @@ function MapWithDrawNodes({ onMarkerDrawn, markerRef, latitude, longitude }) {
     };
 
     if (latitude !== null && longitude !== null) {
-      // If latitude or longitude props change, update the marker position
       if (currentMarker) {
-        // currentMarker.setLatLng([-4.005025538849844, -79.21284306914816]);
         currentMarker.setLatLng([latitude, longitude]);
       } else {
-        // const marker = L.marker([-4.005025538849844, -79.21284306914816]);
         const marker = L.marker([latitude, longitude]);
         marker.addTo(map);
         setCurrentMarker(marker);

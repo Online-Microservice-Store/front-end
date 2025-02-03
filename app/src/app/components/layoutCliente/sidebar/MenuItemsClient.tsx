@@ -11,20 +11,21 @@ import { uniqueId } from "lodash";
 const MenuitemsClient = [
   {
     navlabel: true,
-    subheader: "Home",
+    subheader: "Tradeo",
+    
   },
 
   {
     id: uniqueId(),
     title: "Comprar",
     icon: IconLayoutDashboard,
-    href: "/",
+    href: "/products",
   },
   {
     id: uniqueId(),
     title: "Perfil",
     icon: IconUser,
-    href: "/profile",
+    href: "/",
   },
   {
     navlabel: true,
@@ -50,7 +51,7 @@ const MenuitemsClient = [
     id: uniqueId(),
     title: "Pagos",
     icon: IconBrandPaypay,
-    href: "/payments",
+    href: "/",
   },
 ];
 
