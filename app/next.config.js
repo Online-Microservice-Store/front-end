@@ -16,8 +16,9 @@ module.exports = {
     // Ignora errores de lint en producción (solo si es necesario)
     ignoreDuringBuilds: true,
   },
+  nextConfig
 };
 
 //Cloud UNL...ock
 
-module.exports = nextConfig;
+// module.exports = nextConfig;
