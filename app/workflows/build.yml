@@ -9,7 +9,10 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
+    env:
+      PORT: ${{ secrets.PORT }}
+      BACKEND_URL: ${{ secrets.BACKEND_URL }}
+      NEXTAUTH_URL: ${{ secrets.NEXTAUTH_URL }}
     steps:
       - name: Checkout del código
         uses: actions/checkout@v3
