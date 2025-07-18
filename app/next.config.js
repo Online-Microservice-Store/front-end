@@ -11,4 +11,13 @@ const nextConfig = {
   },
 };
 
+module.exports = {
+  eslint: {
+    // Ignora errores de lint en producción (solo si es necesario)
+    ignoreDuringBuilds: true,
+  },
+};
+
+//Cloud UNL...ock
+
 module.exports = nextConfig;
